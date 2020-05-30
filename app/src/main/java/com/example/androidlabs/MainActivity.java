@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-        setContentView(R.layout.grid_layout);
+        setContentView(R.layout.relative_layout);
         TextView myTextView = findViewById(R.id.tv);
 
         Button bt = findViewById(R.id.btClick);
