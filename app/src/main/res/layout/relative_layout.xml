@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="@string/GUI"
+            android:textSize="30sp"
+            />
+
+
+            <Button
+                android:layout_below="@id/tv"
+                android:id="@+id/btClick"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:gravity="fill_horizontal"
+                android:text="@string/click"
+                />
+
+        <CheckBox
+            android:id="@+id/cbCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/btClick"
+            android:gravity="fill_horizontal"
+            android:text="@string/checkThisOut" />
+
+        <ImageButton
+                android:layout_below="@id/btClick"
+                android:id="@+id/ibtFlag"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:gravity="fill_horizontal"
+                android:src="@drawable/flag"
+                />
+
+        <Switch
+            android:id="@+id/sw"
+            android:layout_width="wrap_content"
+            android:layout_height="79dp"
+            android:layout_above="@id/etName"
+            android:layout_below="@id/cbCheck"
+            android:layout_marginTop="56dp"
+            android:layout_toEndOf="@id/ibtFlag"
+            android:gravity="fill_horizontal"
+            android:text="@string/switchOnOff" />
+
+
+        <EditText
+            android:layout_below="@id/ibtFlag"
+            android:id="@+id/etName"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="@string/typeHint"
+            android:inputType="textPersonName"
+            />
+        <TextView
+            android:layout_below="@id/etName"
+            android:text="//Relative View"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

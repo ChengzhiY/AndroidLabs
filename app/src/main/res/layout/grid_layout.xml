@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:columnCount="2"
+    android:rowCount="4"
+    android:gravity="fill"
+   >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:id="@+id/tv"
+        android:text="@string/GUI"
+        android:textSize="30dp"
+        />
+
+    <Button
+
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btClick"
+        android:text="@string/click"
+        />
+    <CheckBox
+
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/cbCheck"
+        android:text="@string/checkThisOut"
+        />
+    <ImageButton
+
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/ibtFlag"
+        android:src="@drawable/flag"
+        />
+
+    <Switch
+
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/sw"
+        android:text="@string/switchOnOff"
+
+        />
+    <EditText
+
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_columnSpan="2"
+        android:id="@+id/etName"
+        android:hint="@string/typeHint"
+        android:inputType="textPersonName"
+        />
+    <TextView
+        android:text="//Grid Layout"/>|
+</GridLayout>
