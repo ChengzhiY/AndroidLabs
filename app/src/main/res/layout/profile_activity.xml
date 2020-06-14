@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/profile_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_header"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/text_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_name"
+            android:textSize="20sp"
+            />
+        <EditText
+            android:inputType="textPersonName"
+            android:id="@+id/person_name"
+            android:hint="@string/hint_enter_your_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"/>
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_enter_your_email"
+            android:textSize="20sp"/>
+        <EditText
+            android:inputType="textEmailAddress"
+            android:id="@+id/enter_email"
+            android:hint="@string/enter_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"/>
+        <TextView
+            android:id="@+id/your_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_pic"
+            android:textSize="25sp"
+            />
+
+        <ImageButton
+            android:id="@+id/image_button"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:src="@android:drawable/picture_frame"
+             />
+        <TextView
+            android:id="@+id/bt_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_pic"
+            android:textSize="25sp"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
