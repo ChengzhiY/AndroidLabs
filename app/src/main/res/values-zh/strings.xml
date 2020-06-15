@@ -15,9 +15,9 @@
     <string name="login">登录</string>
     <string name="enter_email">输入邮箱地址</string>
     <string name="enter_pw">输入密码</string>
-    <string name="profile_header">Your Profile</string>
-    <string name="your_name">Your Nama:</string>
-    <string name="hint_enter_your_name">Enter your name</string>
-    <string name="hint_enter_your_email">Enter your email</string>
-    <string name="your_pic">Your picture</string>
+    <string name="profile_header">你的信息</string>
+    <string name="your_name">你的名字:</string>
+    <string name="hint_enter_your_name">你的名字</string>
+    <string name="hint_enter_your_email">你的电邮</string>
+    <string name="your_pic">你的照片</string>
 </resources>
