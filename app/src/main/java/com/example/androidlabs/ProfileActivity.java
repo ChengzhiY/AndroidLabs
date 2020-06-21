@@ -1,8 +1,6 @@
 package com.example.androidlabs;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -11,12 +9,13 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+
 
 public class ProfileActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    public static final String ACTIVITY_NAME = "PROFILE_ACTIVITY";;
-    ImageButton mImageButton = null;
+    public static final String ACTIVITY_NAME = "PROFILE_ACTIVITY";
+    private ImageButton mImageButton = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +29,9 @@ public class ProfileActivity extends AppCompatActivity {
         emailEditText.setText(fromMain.getStringExtra("EMAIL"));
         Log.e(ACTIVITY_NAME, "In function:" + "onCreate");
 
+        Button btChatRoom = findViewById(R.id.bt_chatRoom);
+        Intent ChatRoomPage = new Intent(this, ChatRoomActivity.class);
+        btChatRoom.setOnClickListener(e -> startActivity(ChatRoomPage ));
     }
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -43,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
+            assert extras != null;
             Bitmap imageBitmap = (Bitmap) extras.get("data");
            mImageButton.setImageBitmap(imageBitmap);
             Log.e(ACTIVITY_NAME, "In function:" + "onActivityResult");

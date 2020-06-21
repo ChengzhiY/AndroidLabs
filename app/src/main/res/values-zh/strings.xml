@@ -20,4 +20,8 @@
     <string name="hint_enter_your_name">你的名字</string>
     <string name="hint_enter_your_email">你的电邮</string>
     <string name="your_pic">你的照片</string>
+    <string name="go_to_chat_room">去聊天室</string>
+    <string name="type_message">Type Here</string>
+    <string name="send">Send</string>
+    <string name="receive">Receive</string>
 </resources>
