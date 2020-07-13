@@ -55,15 +55,7 @@ public class WeatherForecast extends AppCompatActivity {
         maxTEmpTextView = findViewById(R.id.maxTemp);
         UVRateTextView = findViewById(R.id.UVRating);
         progress = findViewById(R.id.progressBar);
-
-        currentTempTextView.setText(R.string.currentTemp);
-        minTempTextView.setText(R.string.minTemp);
-        maxTEmpTextView.setText(R.string.maxTemp);
-        UVRateTextView.setText(R.string.UVRating);
         progress.setVisibility(View.VISIBLE);
-
-
-
     }
 
     public class ForecastQuery extends AsyncTask <String, Integer, String> {
@@ -71,100 +63,102 @@ public class WeatherForecast extends AppCompatActivity {
         private String minTemp = "";
         private String maxTemp = "";
         private String currentTemp = "";
-        private Bitmap bitMap = null;
+        private Bitmap bitMap;
         @Override
         protected String doInBackground(String... strings) {
 
-                try {
-                    //create a URL object of what server to contact:
-                    URL url = new URL(URL_WEATHER);
-                    //open the connection
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    //wait for data:
-                    InputStream response = urlConnection.getInputStream();
+            try {
+                //get the string url:
+                String myUrl = strings[0];
+                //create a URL object of what server to contact:
+                URL url = new URL(myUrl);
+                //open the connection
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                //wait for data:
+                InputStream response = urlConnection.getInputStream();
 
-                    //From part 3: slide 19
-                    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                    factory.setNamespaceAware(false);
-                    XmlPullParser xpp = factory.newPullParser();
-                    xpp.setInput( response  , "UTF-8");
+                //From part 3: slide 19
+                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                factory.setNamespaceAware(false);
+                XmlPullParser xpp = factory.newPullParser();
+                xpp.setInput( response  , "UTF-8");
 
-                    //From part 3, slide 20
-                    String iconName = null;
+                //From part 3, slide 20
+                String iconName = null;
 
-                    int eventType = xpp.getEventType(); //The parser is currently at START_DOCUMENT
+                int eventType = xpp.getEventType(); //The parser is currently at START_DOCUMENT
 
-                    while(eventType != XmlPullParser.END_DOCUMENT) {
+                while(eventType != XmlPullParser.END_DOCUMENT) {
 
-                        if(eventType == XmlPullParser.START_TAG) {
-                            //If you get here, then you are pointing at a start tag
-                            if(xpp.getName().equalsIgnoreCase("Temperature")) {
-                                currentTemp = xpp.getAttributeValue(null, "value");
-                                publishProgress(25);
-                                minTemp = xpp.getAttributeValue(null, "min");
-                                publishProgress(50);
-                                maxTemp = xpp.getAttributeValue(null, "max");
-                                publishProgress(75);
-                            }
-                            else if(xpp.getName().equalsIgnoreCase("Weather")) {
-                                iconName = xpp.getAttributeValue(null, "icon") + ".png";
-
-                            }
-                            eventType = xpp.next(); //move to the next xml event and store it in a variable
+                    if(eventType == XmlPullParser.START_TAG) {
+                        //If you get here, then you are pointing at a start tag
+                        if(xpp.getName().equalsIgnoreCase("Temperature")) {
+                            currentTemp = xpp.getAttributeValue(null, "value");
+                            publishProgress(25);
+                            Thread.sleep(500);
+                            minTemp = xpp.getAttributeValue(null, "min");
+                            publishProgress(50);
+                            Thread.sleep(500);
+                            maxTemp = xpp.getAttributeValue(null, "max");
+                            publishProgress(75);
                         }
+                        else if(xpp.getName().equalsIgnoreCase("Weather")) {
+                            iconName = xpp.getAttributeValue(null, "icon");
+                            if(fileExistence(iconName + ".png")){
+                                Log.i(iconName, "Weather image exists, read from file");
+                                FileInputStream fis = null;
+                                try {    fis = openFileInput(iconName + ".png");   }
+                                catch (FileNotFoundException e) { e.printStackTrace();  }
+                                bitMap = BitmapFactory.decodeStream(fis);
 
+                            }else {
+                                Log.i(iconName, "Weather image does not exist, download from URL");
+                                URL imageUrl = new URL(URL_IMAGE + iconName + ".png");
+                                urlConnection = (HttpURLConnection) imageUrl.openConnection();
+                                urlConnection.connect();
+                                int responseCode = urlConnection.getResponseCode();
+                                if (responseCode == 200) {
+                                    bitMap = BitmapFactory.decodeStream(urlConnection.getInputStream());
+                                }
 
+                                FileOutputStream outputStream  = openFileOutput(iconName + ".png", Context.MODE_PRIVATE);
+                                bitMap.compress(Bitmap.CompressFormat.PNG, 80, outputStream );
+                                outputStream .flush();
+                                outputStream .close();
                             }
-                    if(fileExistence(iconName + ".png")){
-                        Log.i(iconName, "Weather image exists, read from file");
-                        FileInputStream fis = null;
-                        try {    fis = openFileInput(iconName + ".png");   }
-                        catch (FileNotFoundException e) {    e.printStackTrace();  }
-                        bitMap = BitmapFactory.decodeStream(fis);
-
-                    }else {
-                        Log.i(iconName, "Weather image does not exist, download from URL");
-                        URL imageUrl = new URL(URL_IMAGE + iconName + ".png");
-                        urlConnection = (HttpURLConnection) imageUrl.openConnection();
-                        urlConnection.connect();
-                        int responseCode = urlConnection.getResponseCode();
-                        if (responseCode == 200) {
-                            bitMap = BitmapFactory.decodeStream(urlConnection.getInputStream());
+                            publishProgress(100);
                         }
-
-                        FileOutputStream outputStream  = openFileOutput(iconName + ".png", Context.MODE_PRIVATE);
-                        bitMap.compress(Bitmap.CompressFormat.PNG, 80, outputStream );
-                        outputStream .flush();
-                        outputStream .close();
-                        publishProgress(100);
                     }
-                    //JSON CODE STARTS
-                    URL UVUrl = new URL(URL_UV);
-                    HttpURLConnection UVConnection = (HttpURLConnection) UVUrl.openConnection();
-                    response = UVConnection.getInputStream();
+                    eventType = xpp.next(); //move to the next xml event and store it in a variable
 
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
-                    StringBuilder sb = new StringBuilder();
-
-                    String line = null;
-                    while ((line = reader.readLine()) != null)
-                    {
-                        sb.append(line).append("\n");
-                    }
-                    String result = sb.toString();
-
-                    JSONObject jObject = new JSONObject(result);
-                    float value = (float) jObject.getDouble("value");
-                    UV = String.valueOf(jObject.getDouble("value"));
-                    Log.e("AsyncTask", "Found UV: " + UV);
                 }
+                //JSON CODE STARTS
+                URL UVUrl = new URL(URL_UV);
+                HttpURLConnection UVConnection = (HttpURLConnection) UVUrl.openConnection();
+                response = UVConnection.getInputStream();
 
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
+                StringBuilder sb = new StringBuilder();
 
-                catch (Exception e) {
-                    Log.e("AsyncTask", "Error");
+                String line = null;
+                while ((line = reader.readLine()) != null)
+                {
+                    sb.append(line).append("\n");
                 }
-            return "Done";
+                String result = sb.toString();
+
+                JSONObject jObject = new JSONObject(result);
+                float value = (float) jObject.getDouble("value");
+                UV = String.valueOf(value);
+                Log.e("AsyncTask", "Found UV: " + UV);
             }
+
+
+            catch (Exception e) {
+                Log.e("AsyncTask", "Error");
+            }
+            return "Done";
+        }
 
         //Type 2
         public void onProgressUpdate(Integer ... args)
@@ -189,4 +183,3 @@ public class WeatherForecast extends AppCompatActivity {
 
     }
 }
-
