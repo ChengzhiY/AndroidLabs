@@ -24,4 +24,9 @@
     <string name="type_message">请输入</string>
     <string name="send">发送</string>
     <string name="receive">接收</string>
+    <string name="WeatherForecast">Weather Forecast</string>
+    <string name="currentTemp">Current Temperature</string>
+    <string name="minTemp">Minimun Temperature</string>
+    <string name="maxTemp">Maximum Temperature</string>
+    <string name="UVRating">UV Rating</string>
 </resources>

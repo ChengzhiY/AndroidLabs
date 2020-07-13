@@ -9,7 +9,8 @@
     <ListView
         android:id="@+id/list_view"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/send"
         />
 
         <Button
@@ -28,6 +29,8 @@
             android:hint="@string/type_message"
             android:inputType="text"
             android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/receive"
+            android:layout_toRightOf="@id/send"
             android:layout_centerHorizontal="true" />
         <Button
             android:id="@+id/receive"

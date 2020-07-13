@@ -32,6 +32,10 @@ public class ProfileActivity extends AppCompatActivity {
         Button btChatRoom = findViewById(R.id.bt_chatRoom);
         Intent ChatRoomPage = new Intent(this, ChatRoomActivity.class);
         btChatRoom.setOnClickListener(e -> startActivity(ChatRoomPage ));
+
+        Button btWeatherForecast = findViewById(R.id.bt_WeatherForecast);
+        Intent weatherForecastPage = new Intent(this, WeatherForecast.class);
+        btWeatherForecast.setOnClickListener(e -> startActivity(weatherForecastPage));
     }
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
