@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lab6</string>
+    <string name="app_name">Lab7</string>
     <string name="hello_message">Hello World!!</string>
     <string name="GUI">Look at my GUI:</string>
     <string name="ButtonText">I\'m a button</string>
@@ -28,4 +28,9 @@
     <string name="minTemp">Minimun Temperature</string>
     <string name="maxTemp">Maximum Temperature</string>
     <string name="UVRating">UV Rating</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="message_here_fragment">Message Here</string>
+    <string name="isSendMessage">is a Send Message</string>
+    <string name="hide">HIDE</string>
 </resources>

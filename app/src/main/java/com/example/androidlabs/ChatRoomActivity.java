@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,7 +26,9 @@ import java.util.Arrays;
 public class ChatRoomActivity extends AppCompatActivity {
     private ArrayList<MessageHandler> listMessages = new ArrayList<>();
     private MyListAdapter  myAdapter = new MyListAdapter();
-
+    public static final String ITEM_SELECTED = "ITEM";
+    public static final String ITEM_ID = "ID";
+    public static final String IS_SEND = "";
     SQLiteDatabase db;
 
     @Override
@@ -36,10 +40,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         Button btSend = findViewById(R.id.send);
         Button btReceive = findViewById(R.id.receive);
         EditText textMessage = findViewById(R.id.message_to_send);
+        //FrameLayout frameLayout = findViewById(R.id.frame_layout);
+        boolean isTablet = findViewById(R.id.frame_layout) != null;
 
         loadDataFromDatabase();
 
         ContentValues newRowValues = new ContentValues();
+
         btSend.setOnClickListener(e -> {
             String message = textMessage.getText().toString();
             newRowValues.put(MyOpener.COL_MESSAGE, message);
@@ -62,6 +69,31 @@ public class ChatRoomActivity extends AppCompatActivity {
             textMessage.setText("");
         });
 
+        listView.setOnItemClickListener((list, item, position, id) ->{
+
+            Object object = listView.getItemAtPosition(position);
+            MessageHandler messageHandler = (MessageHandler)object;
+
+            Bundle dataToPass = new Bundle();
+
+            dataToPass.putString(ITEM_SELECTED, messageHandler.getMessage());
+            dataToPass.putLong(ITEM_ID, id);
+            dataToPass.putBoolean(IS_SEND, messageHandler.isSend());
+
+            if(isTablet){
+               DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+               dFragment.setArguments( dataToPass ); //pass it a bundle for information
+               getSupportFragmentManager()
+                       .beginTransaction()
+                       .replace(R.id.frame_layout, dFragment) //Add the fragment in FrameLayout
+                       .commit();}
+            else{
+                Intent nextActivity = new Intent(ChatRoomActivity.this, EmptyActivity.class);
+                nextActivity.putExtras(dataToPass); //send data to next activity
+                startActivity(nextActivity); //make the transition
+
+            }
+        });
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Do you want to delete this?")

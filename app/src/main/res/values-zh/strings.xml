@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">实验5</string>
+    <string name="app_name">实验6</string>
     <string name="hello_message">你好世界!!</string>
     <string name="GUI">看我的GUI</string>
     <string name="ButtonText">按钮</string>
@@ -29,4 +29,7 @@
     <string name="minTemp">Minimun Temperature</string>
     <string name="maxTemp">Maximum Temperature</string>
     <string name="UVRating">UV Rating</string>
+    <string name="message_here_fragment">Message Here</string>
+    <string name="isSendMessage">is a Send Message</string>
+    <string name="hide">HIDE</string>
 </resources>
